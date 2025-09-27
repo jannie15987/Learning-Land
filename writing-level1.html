@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracing Letters - Level 1</title>
+  <link rel="stylesheet" href="writing.css">
+</head>
+<body>
+  <header>
+    <h2>✏️ Level 1: Tracing Letters</h2>
+  </header>
+
+  <main>
+    <p>Trace the letter below!</p>
+    <div class="tracing-container">
+      <canvas id="traceCanvas" width="400" height="400"></canvas>
+    </div>
+    <button onclick="clearCanvas()">Clear</button>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("traceCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Draw a big letter to trace
+    ctx.font = "200px Arial";
+    ctx.fillStyle = "rgba(200,200,200,0.5)";
+    ctx.fillText("A", 100, 250);
+
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", () => drawing = true);
+    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+      if (!drawing) return;
+      const rect = canvas.getBoundingClientRect();
+      ctx.fillStyle = "#4caf50";
+      ctx.beginPath();
+      ctx.arc(e.clientX - rect.left, e.clientY - rect.top, 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(200,200,200,0.5)";
+      ctx.font = "200px Arial";
+      ctx.fillText("A", 100, 250);
+    }
+  </script>
+</body>
+</html>
