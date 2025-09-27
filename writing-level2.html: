@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your First Word - Level 2</title>
+  <link rel="stylesheet" href="writing.css">
+</head>
+<body>
+  <header>
+    <h2>✏️ Level 2: Build Your First Word</h2>
+  </header>
+
+  <main>
+    <p>Drag the letters to spell the word: <strong>CAT</strong></p>
+    <div class="word-game">
+      <div class="letters">
+        <div class="letter" draggable="true">C</div>
+        <div class="letter" draggable="true">A</div>
+        <div class="letter" draggable="true">T</div>
+      </div>
+      <div class="drop-zone" id="dropZone">Drop letters here</div>
+    </div>
+    <p id="message"></p>
+  </main>
+
+  <script>
+    const letters = document.querySelectorAll(".letter");
+    const dropZone = document.getElementById("dropZone");
+    let placed = [];
+
+    letters.forEach(letter => {
+      letter.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text", e.target.innerText);
+      });
+    });
+
+    dropZone.addEventListener("dragover", e => {
+      e.preventDefault();
+    });
+
+    dropZone.addEventListener("drop", e => {
+      e.preventDefault();
+      const letter = e.dataTransfer.getData("text");
+      placed.push(letter);
+      dropZone.innerText = placed.join("");
+      checkWord();
+    });
+
+    function checkWord() {
+      if (placed.join("") === "CAT") {
+        document.getElementById("message").innerText = "🎉 Great job!";
+      }
+    }
+  </script>
+</body>
+</html>
