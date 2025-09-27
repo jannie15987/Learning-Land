@@ -57,6 +57,14 @@ h2 {
     text-align: center;
 }
 
+/* hovering effect to look nice */
+nav ul li a.active,
+nav ul li a:hover {
+  background: #a7d0e8;
+  box-shadow: 1px 1px #333;
+  transform: translate(2px, 2px);
+}
+
 /* Level cards */
 .level {
     background-color: #ffffff;
