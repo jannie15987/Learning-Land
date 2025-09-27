@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 2: Spell the Word - Learning Land</title>
+  <link rel="stylesheet" href="reading.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    .max-w-2xl { max-width: 768px; margin: auto; }
+    .pixel-border { border: 4px solid #6b8e23; padding: 10px; }
+    .bg-soft-white { background-color: rgba(255,255,255,0.8); }
+    .bg-butter-yellow { background-color: #fff3b0; }
+    .text-sage-green { color: #6b8e23; }
+    .text-red { color: red; }
+    .pixel-button { font-family: 'Press Start 2P', cursive; padding: 10px; cursor: pointer; }
+    input { font-family: 'Press Start 2P', cursive; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">🏠 Home</a></li>
+        <li><a href="reading.html" class="active">📖 Reading</a></li>
+        <li><a href="writing.html">✏️ Writing</a></li>
+        <li><a href="math.html">🧮 Math</a></li>
+        <li><a href="awards.html">🏆 Awards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="max-w-2xl space-y-6">
+    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white">
+      <p id="question-counter" class="text-sage-green">Question: 1/5</p>
+      <p id="score" class="text-sage-green">Score: 0</p>
+    </div>
+
+    <div class="p-8 pixel-border bg-soft-white text-center">
+      <h2 class="text-2xl text-sage-green mb-6">Spell the word!</h2>
+
+      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-sage-green">
+        <p class="text-sage-green text-xl"><strong>Hint:</strong> </p>
+      </div>
+
+      <form id="spell-form" class="space-y-6">
+  <label for="user-input" class="sr-only">Type the word</label>
+  <input 
+    type="text" 
+    id="user-input" 
+    maxlength="5" 
+    placeholder="Type here"
+    class="w-full max-w-sm mx-auto text-center font-heading text-4xl p-4 tracking-[1rem] uppercase border-4 border-sage-green bg-soft-white" 
+    style="caret-color:transparent;"
+  >
+  <button type="submit" class="pixel-button">Check Spelling</button>
+</form>
+
+
+      <p id="feedback" class="text-2xl mt-6"></p>
+    </div>
+  </main>
+
+  <script>
+    const wordsToSpell = {
+      'CAT': 'A furry pet',
+      'DOG': 'A friendly animal',
+      'SUN': 'Shines in the sky',
+      'BED': 'Where you sleep',
+      'PIG': 'An animal that oinks',
+    };
+
+    const totalQuestions = 5;
+    let currentWord = '';
+    let userInput = '';
+    let questionsAnswered = 0;
+    let score = 0;
+
+    const questionCounter = document.getElementById("question-counter");
+    const scoreEl = document.getElementById("score");
+    const hintBox = document.getElementById("hint-box");
+    const inputEl = document.getElementById("user-input");
+    const feedbackEl = document.getElementById("feedback");
+    const form = document.getElementById("spell-form");
+
+    function generateNewQuestion() {
+      const keys = Object.keys(wordsToSpell);
+      currentWord = keys[Math.floor(Math.random() * keys.length)];
+      hintBox.querySelector('p').innerHTML = `<strong>Hint:</strong> ${wordsToSpell[currentWord]}`;
+      inputEl.value = '';
+      feedbackEl.textContent = '';
+      inputEl.disabled = false;
+      inputEl.focus();
+    }
+
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      userInput = inputEl.value.toUpperCase();
+      if(!userInput) return;
+
+      inputEl.disabled = true;
+      questionsAnswered++;
+      questionCounter.textContent = `Question: ${questionsAnswered}/${totalQuestions}`;
+
+      if(userInput === currentWord){
+        score += 15;
+        scoreEl.textContent = `Score: ${score}`;
+        feedbackEl.textContent = "Perfect spelling!";
+        feedbackEl.style.color = "green";
+      } else {
+        feedbackEl.textContent = `Incorrect! The word was: ${currentWord}`;
+        feedbackEl.style.color = "red";
+      }
+
+      setTimeout(() => {
+        if(questionsAnswered < totalQuestions){
+          generateNewQuestion();
+        } else {
+          feedbackEl.textContent = `Game over! Final score: ${score}`;
+        }
+      }, 1500);
+    }
+
+    // Initialize first question
+    generateNewQuestion();
+  </script>
+</body>
+</html>
