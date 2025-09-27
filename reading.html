@@ -1,46 +1,54 @@
-// src/pages/reading/ReadingLanding.jsx
-import React from "react";
-import { Link } from "react-router-dom";
-
-export default function ReadingLanding() {
-  return (
-    <div className="reading-page max-w-3xl mx-auto p-4">
-      <header>
-        <div className="logo">
-          <img src="arcade-mascot.png" alt="Learning Land Mascot" />
-          <span>Learning Land</span>
-        </div>
-        <nav>
-          <ul>
-            <li><Link to="/">🏠 Home</Link></li>
-            <li><Link to="/reading" className="active">📖 Reading</Link></li>
-            <li><Link to="/writing">✏️ Writing</Link></li>
-            <li><Link to="/math">🧮 Math</Link></li>
-            <li><Link to="/awards">🏆 Awards</Link></li>
-          </ul>
-        </nav>
-      </header>
-
-      <main>
-        <h2>Select a Lecture</h2>
-
-        <div className="level">
-          <div className="level-info">
-            <span className="level-title">Level 1: The Alphabet</span>
-            <span className="level-desc">Learn all the letters from A to Z.</span>
-          </div>
-          {/* React Router Link */}
-          <Link to="/reading/level1" className="level-link">»</Link>
-        </div>
-
-        <div className="level">
-          <div className="level-info">
-            <span className="level-title">Level 2: Phonics Fun</span>
-            <span className="level-desc">Discover the sounds that letters make.</span>
-          </div>
-          <Link to="/reading/level2" className="level-link">»</Link>
-        </div>
-      </main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Games - Learning Land</title>
+  <link rel="stylesheet" href="reading.css">
+  <!-- Arcade-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
     </div>
-  );
-}
+    <nav>
+      <ul>
+        <li><a href="homepage.html"><span>🏠</span> Home</a></li>
+        <li><a href="reading.html" class="active"><span>📖</span> Reading</a></li>
+        <li><a href="writing.html"><span>✏️</span> Writing</a></li>
+        <li><a href="math.html"><span>🧮</span> Math</a></li>
+        <li><a href="awards.html"><span>🏆</span> Awards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Select a Lecture</h2>
+
+    <div class="level">
+      <div class="level-info">
+        <span class="level-title">Level 1: The Alphabet</span>
+        <span class="level-desc">Learn all the letters from A to Z.</span>
+      </div>
+        <a href="level1.html" class="level-link">»</a>
+    </div>
+
+    <div class="level">
+      <div class="level-info">
+        <span class="level-title">Level 2: Phonics Fun</span>
+        <span class="level-desc">Discover the sounds that letters make.</span>
+      </div>
+      <a href="level2.html" class="level-link">»</a>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Learning Land. All rights reserved.
+  </footer>
+
+</body>
+</html>
