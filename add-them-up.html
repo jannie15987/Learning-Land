@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Them Up - Learning Land</title>
+  <link rel="stylesheet" href="math.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    .game-container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border: 3px solid #2196f3;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .equation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      font-size: 2.5rem;
+      margin: 30px 0;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .options button {
+      font-family: 'Press Start 2P', cursive;
+      padding: 15px;
+      font-size: 1.2rem;
+      border: 3px solid #2196f3;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #eef3fb;
+      transition: transform 0.1s, background 0.2s;
+    }
+    .options button:hover {
+      transform: scale(1.05);
+      background: #d9e9ff;
+    }
+    .feedback {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">🏠 Home</a></li>
+        <li><a href="reading.html">📖 Reading</a></li>
+        <li><a href="writing.html">✏️ Writing</a></li>
+        <li><a href="math.html" class="active">🧮 Math</a></li>
+        <li><a href="awards.html">🏆 Awards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <h2>Add Them Up</h2>
+      <p id="score">Score: 0</p>
+      <p id="question">Question 1 of 8</p>
+
+      <div class="equation">
+        <span id="num1">?</span>
+        <span>+</span>
+        <span id="num2">?</span>
+        <span>=</span>
+        <span>?</span>
+      </div>
+
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Learning Land. All rights reserved.
+  </footer>
+
+  <script>
+    let num1 = 0, num2 = 0, correctAnswer = 0;
+    let score = 0, question = 0;
+    const totalQuestions = 8;
+
+    function newQuestion() {
+      question++;
+      if (question > totalQuestions) {
+        document.getElementById("feedback").textContent = `Game over! Final score: ${score}`;
+        document.getElementById("options").innerHTML = "";
+        return;
+      }
+
+      num1 = Math.floor(Math.random() * 5) + 1;
+      num2 = Math.floor(Math.random() * 5) + 1;
+      correctAnswer = num1 + num2;
+
+      document.getElementById("num1").textContent = num1;
+      document.getElementById("num2").textContent = num2;
+
+      const options = new Set([correctAnswer]);
+      while (options.size < 4) {
+        const wrong = Math.floor(Math.random() * 9) + 2;
+        options.add(wrong);
+      }
+      const shuffled = [...options].sort(() => Math.random() - 0.5);
+
+      document.getElementById("options").innerHTML = "";
+      shuffled.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt);
+        document.getElementById("options").appendChild(btn);
+      });
+
+      document.getElementById("score").textContent = `Score: ${score}`;
+      document.getElementById("question").textContent = `Question ${question} of ${totalQuestions}`;
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer(opt) {
+      if (opt === correctAnswer) {
+        score += 15;
+        document.getElementById("feedback").textContent = "✅ Correct!";
+      } else {
+        document.getElementById("feedback").textContent = `❌ Wrong. The answer was ${correctAnswer}.`;
+      }
+      setTimeout(newQuestion, 1000);
+    }
+
+    newQuestion();
+  </script>
+</body>
+</html>
