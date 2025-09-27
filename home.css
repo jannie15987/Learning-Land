@@ -1,0 +1,131 @@
+/* -------- RESET -------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* -------- BODY -------- */
+body {
+  font-family: 'Press Start 2P', cursive, sans-serif; /* Arcade-style font */
+  background-color: #f9f1c7;
+  color: #111;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------- HEADER -------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border: 3px solid #5d7261;
+  border-radius: 10px;
+  background: #fdfdf8;
+  margin: 1rem;
+}
+
+/* -------- styling for our aracde mascot-------- */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 120px; /
+  /* height: auto; */
+}
+
+.logo span {
+  font-size: 14px;
+}
+
+/* -------- NAV bar and styling-------- */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #333;
+  background: #dceff6;
+  border: 3px solid #5d7261;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  box-shadow: 3px 3px #333;
+  transition: all 0.2s ease;
+}
+
+/* hovering effect to look nice */
+nav ul li a.active,
+nav ul li a:hover {
+  background: #a7d0e8;
+  box-shadow: 1px 1px #333;
+  transform: translate(2px, 2px);
+}
+
+/* -------- HERO Sections-------- */
+.hero {
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.hero h2 {
+  font-size: 16px;
+  margin-bottom: 2rem;
+}
+
+.hero p {
+  font-size: 12px;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.hero img.kids {
+  max-width: 400px;
+  margin-top: 2rem;
+}
+
+/* -------- RESPONSIVE -------- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .hero h1 {
+    font-size: 20px;
+  }
+
+  .hero h2 {
+    font-size: 14px;
+  }
+
+  .logo img {
+    width: 90px;
+  }
+}
