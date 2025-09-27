@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 1: Alphabet Game - Learning Land</title>
+  <link rel="stylesheet" href="reading.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* Minimal styles for game */
+    .max-w-3xl { max-width: 960px; margin: auto; }
+    .pixel-border { border: 4px solid #6b8e23; padding: 10px; }
+    .bg-soft-white { background-color: rgba(255,255,255,0.8); }
+    .text-sage-green { color: #6b8e23; }
+    .pixel-button { font-family: 'Press Start 2P', cursive; padding: 10px; cursor: pointer; }
+    .w-12 { width: 3rem; }
+    .h-12 { height: 3rem; }
+    .bg-pastel-blue { background-color: #a2d5f2; display: flex; justify-content: center; align-items: center; }
+    .border-dashed { border-style: dashed; }
+    .flex { display: flex; }
+    .justify-center { justify-content: center; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-3 { gap: 0.75rem; }
+    .min-h-16 { min-height: 4rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html">🏠 Home</a></li>
+        <li><a href="reading.html" class="active">📖 Reading</a></li>
+        <li><a href="writing.html">✏️ Writing</a></li>
+        <li><a href="math.html">🧮 Math</a></li>
+        <li><a href="awards.html">🏆 Awards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl space-y-6">
+    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white">
+      <p id="question-counter" class="text-sage-green">Question: 1/6</p>
+      <p id="score" class="text-sage-green">Score: 0</p>
+    </div>
+
+    <div class="p-8 pixel-border bg-soft-white text-center">
+      <h2 class="text-2xl text-sage-green mb-6">Put these letters in alphabetical order!</h2>
+
+      <!-- Current Order Display -->
+      <div class="mb-6">
+        <p class="text-sage-green mb-2">Your order:</p>
+        <div id="player-order" class="flex justify-center gap-2 min-h-16"></div>
+      </div>
+
+      <!-- Letter Options -->
+      <div id="letter-options" class="flex justify-center gap-3 mb-6 flex-wrap"></div>
+
+      <button id="reset-btn" class="pixel-button mb-4">Reset Order</button>
+
+      <p id="feedback" class="text-2xl"></p>
+    </div>
+  </main>
+
+  <script>
+    const totalQuestions = 6;
+    let sequence = [];
+    let playerOrder = [];
+    let score = 0;
+    let questionsAnswered = 0;
+
+    const playerOrderDiv = document.getElementById("player-order");
+    const letterOptionsDiv = document.getElementById("letter-options");
+    const questionCounter = document.getElementById("question-counter");
+    const scoreEl = document.getElementById("score");
+    const feedbackEl = document.getElementById("feedback");
+    const resetBtn = document.getElementById("reset-btn");
+
+    function generateSequence() {
+      const startLetter = Math.floor(Math.random() * 20); // A-T
+      sequence = [];
+      for(let i=0;i<5;i++) {
+        sequence.push(String.fromCharCode(65 + startLetter + i));
+      }
+      const shuffled = [...sequence].sort(() => 0.5 - Math.random());
+      playerOrder = [];
+      renderLetters(shuffled);
+      renderPlayerOrder();
+      feedbackEl.textContent = "";
+    }
+
+    function renderLetters(shuffled) {
+      letterOptionsDiv.innerHTML = "";
+      shuffled.forEach(letter => {
+        const btn = document.createElement("button");
+        btn.textContent = letter;
+        btn.className = "pixel-button w-12 h-12 bg-pastel-blue";
+        btn.onclick = () => handleLetterClick(letter);
+        letterOptionsDiv.appendChild(btn);
+      });
+    }
+
+    function renderPlayerOrder() {
+      playerOrderDiv.innerHTML = "";
+      playerOrder.forEach(letter => {
+        const div = document.createElement("div");
+        div.className = "w-12 h-12 bg-pastel-blue flex items-center justify-center";
+        div.textContent = letter;
+        playerOrderDiv.appendChild(div);
+      });
+      const emptySlots = 5 - playerOrder.length;
+      for(let i=0;i<emptySlots;i++){
+        const div = document.createElement("div");
+        div.className = "w-12 h-12 border-dashed border-3 bg-white/50";
+        playerOrderDiv.appendChild(div);
+      }
+    }
+
+    function handleLetterClick(letter) {
+      if(playerOrder.includes(letter)) return;
+      playerOrder.push(letter);
+      renderPlayerOrder();
+      if(playerOrder.length === sequence.length) {
+        checkAnswer();
+      }
+    }
+
+    function checkAnswer() {
+      questionsAnswered++;
+      questionCounter.textContent = `Question: ${questionsAnswered}/${totalQuestions}`;
+      if(JSON.stringify(playerOrder) === JSON.stringify(sequence)){
+        score += 15;
+        scoreEl.textContent = `Score: ${score}`;
+        feedbackEl.textContent = "Perfect!";
+        feedbackEl.style.color = "green";
+      } else {
+        feedbackEl.textContent = `Incorrect! Correct order: ${sequence.join(", ")}`;
+        feedbackEl.style.color = "red";
+      }
+      setTimeout(() => {
+        if(questionsAnswered < totalQuestions){
+          generateSequence();
+        } else {
+          feedbackEl.textContent = `Game over! Final score: ${score}`;
+        }
+      }, 1500);
+    }
+
+    resetBtn.onclick = () => {
+      playerOrder = [];
+      renderPlayerOrder();
+      feedbackEl.textContent = "";
+    }
+
+    // Initialize first round
+    generateSequence();
+  </script>
+</body>
+</html>
