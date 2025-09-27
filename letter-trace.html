@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letter Trace - Learning Land</title>
+  <link rel="stylesheet" href="writing.css"> <link rel="stylesheet" href="letter-trace.css"> <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header style="background-color: #ff6961;">
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html"><span>🏠</span> Home</a></li>
+        <li><a href="reading.html"><span>📖</span> Reading</a></li>
+        <li><a href="writing.html" class="active"><span>✏️</span> Writing</a></li>
+        <li><a href="math.html"><span>🧮</span> Math</a></li>
+        <li><a href="awards.html"><span>🏆</span> Awards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="game-container">
+      <h1>Trace The Letter</h1>
+      
+      <canvas id="trace-canvas" width="400" height="400"></canvas>
+      
+      <p id="feedback-message">Follow the gray path!</p>
+      
+      <div id="controls">
+        <button id="clear-button">Clear</button>
+        <button id="next-button">Next Letter</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="letter-trace.js"></script>
+</body>
+</html>
