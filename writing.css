@@ -1,0 +1,111 @@
+/* arcade font */
+body {
+    font-family: 'Press Start 2P', cursive, sans-serif;
+    background-color: #f9f1c7;
+    color: #111;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4caf50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .logo img {
+    height: 50px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+}
+
+header nav ul li a.active {
+    text-decoration: underline;
+}
+
+/* Main content */
+main {
+    padding: 40px 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* hovering effect to look nice */
+nav ul li a:hover {
+  background: #a7d0e8;
+  box-shadow: 1px 1px #333;
+  transform: translate(2px, 2px);
+}
+
+/* Level cards */
+.level {
+    background-color: #ffffff;
+    border: 3px solid #4caf50;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.level:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.level-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.level-title {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.level-desc {
+    font-size: 0.85em;
+    color: #555;
+}
+
+.level-link {
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #4caf50;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8em;
+    color: #777;
+}
