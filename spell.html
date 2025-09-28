@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Level 2: Spell the Word - Learning Land</title>
-  <link rel="stylesheet" href="writing.css">
+  <!-- Use the Writing stylesheet -->
+  <link rel="stylesheet" href="writing.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
+    /* Writing theme (red) overrides */
+    header { background-color: #c62828; } /* force red header */
     .max-w-2xl { max-width: 768px; margin: auto; }
-    .pixel-border { border: 4px solid #6b8e23; padding: 10px; }
+    .pixel-border { border: 4px solid #c62828; padding: 10px; } /* red border */
     .bg-soft-white { background-color: rgba(255,255,255,0.8); }
     .bg-butter-yellow { background-color: #fff3b0; }
-    .text-sage-green { color: #6b8e23; }
+    .text-crimson { color: #c62828; }
     .text-red { color: red; }
     .pixel-button { font-family: 'Press Start 2P', cursive; padding: 10px; cursor: pointer; }
     input { font-family: 'Press Start 2P', cursive; }
+    /* light utility helpers (since tailwind-like classes aren't present) */
+    .border-2 { border-width: 2px; }
+    .border-4 { border-width: 4px; }
+    .border-crimson { border-color: #c62828; }
+    .center { text-align:center; }
   </style>
 </head>
 <body>
@@ -26,8 +34,8 @@
     <nav>
       <ul>
         <li><a href="homepage.html">🏠 Home</a></li>
-        <li><a href="reading.html" >📖 Reading</a></li>
-        <li><a href="writing.html" class="active">✏️ Writing</a></li>
+        <li><a href="reading.html">📖 Reading</a></li>
+        <li><a href="writing.html" class="active">✏️ Writing</a></li><!-- ✅ stays highlighted -->
         <li><a href="math.html">🧮 Math</a></li>
         <li><a href="awards.html">🏆 Awards</a></li>
       </ul>
@@ -35,15 +43,16 @@
   </header>
 
   <main class="max-w-2xl space-y-6">
-    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white">
-      <p id="question-counter" class="text-sage-green" style="margin: 0 auto;">Question: 1/5</p>
+    <!-- Centered bar with red theme -->
+    <div class="center p-4 pixel-border bg-soft-white">
+      <p id="question-counter" class="text-crimson" style="margin:0;">Question: 1/5</p>
     </div>
 
-    <div class="p-8 pixel-border bg-soft-white text-center">
-      <h2 class="text-2xl text-sage-green mb-6">Spell the word!</h2>
+    <div class="p-8 pixel-border bg-soft-white center">
+      <h2 class="text-crimson" style="font-size:1.5rem; margin-bottom:1.5rem;">Spell the word!</h2>
 
-      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-sage-green">
-        <p class="text-sage-green text-xl"><strong>Hint:</strong> </p>
+      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-crimson">
+        <p class="text-crimson" style="font-size:1.25rem;"><strong>Hint:</strong> </p>
       </div>
 
       <form id="spell-form" class="space-y-6">
@@ -53,9 +62,13 @@
           id="user-input" 
           maxlength="5" 
           placeholder="Type here"
-          class="w-full max-w-sm mx-auto text-center font-heading text-4xl p-4 tracking-[1rem] uppercase border-4 border-sage-green bg-soft-white" 
-          style="caret-color:transparent;"
+          class="w-full max-w-sm mx-auto text-center font-heading"
+          style="font-size:2rem; padding:1rem; letter-spacing:1rem; text-transform:uppercase; border-style:solid;"
         >
+        <!-- explicit border via class helpers -->
+        <style>
+          #user-input { border-width:4px; border-color:#c62828; background:rgba(255,255,255,0.8); caret-color:transparent; }
+        </style>
         <button type="submit" class="pixel-button">Check Spelling</button>
       </form>
 
@@ -88,6 +101,7 @@
       hintBox.querySelector('p').innerHTML = `<strong>Hint:</strong> ${wordsToSpell[currentWord]}`;
       inputEl.value = '';
       feedbackEl.textContent = '';
+      feedbackEl.style.color = '';
       inputEl.disabled = false;
       inputEl.focus();
     }
@@ -119,7 +133,7 @@
       }, 1500);
     }
 
-    // Initialize first question
+    // Initialize
     generateNewQuestion();
   </script>
 </body>
