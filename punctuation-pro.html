@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punctuation Pro - Learning Land</title>
+  <link rel="stylesheet" href="writing.css">
+  <link rel="stylesheet" href="punctuation-pro.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="arcade-mascot.png" alt="Learning Land Mascot">
+      <span>Learning Land</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="homepage.html"><span>🏠</span> Home</a></li>
+        <li><a href="reading.html"><span>📖</span> Reading</a></li>
+        <li><a href="writing.html" class="active"><span>✏️</span> Writing</a></li>
+        <li><a href="math.html"><span>🧮</span> Math</a></li>
+        <li><a href="aboutus.html"><span></span> About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div id="game-container">
+      <h1>Punctuation Pro</h1>
+      
+      <div id="status-bar">
+        <span id="question-counter">Question: 1/5</span>
+        <span id="score-counter">Score: 0</span>
+      </div>
+
+      <div id="sentence-display">
+        </div>
+
+      <p class="instructions">Choose the correct punctuation mark!</p>
+
+      <div id="options-container">
+        <button class="option-button">.</button>
+        <button class="option-button">?</button>
+        <button class="option-button">!</button>
+      </div>
+      
+      <p id="feedback-message">&nbsp;</p>
+    </div>
+  </main>
+  
+  <script src="punctuation-pro.js"></script>
+
+</body>
+</html>
