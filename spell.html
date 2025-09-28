@@ -15,23 +15,15 @@
     .bg-soft-white { background-color: rgba(255,255,255,0.8); }
     .bg-butter-yellow { background-color: #fff3b0; }
     .text-crimson { color: #c62828; }
-    .text-red { color: red; }
-    .pixel-button { font-family: 'Press Start 2P', cursive; padding: 10px; cursor: pointer; }
-    input { font-family: 'Press Start 2P', cursive; }
-    /* light utility helpers */
-    .border-2 { border-width: 2px; }
-    .border-4 { border-width: 4px; }
-    .border-crimson { border-color: #c62828; }
     .center { text-align:center; }
 
-    /* Strong, final overrides (in case site CSS loads later) */
+    /* Strong, final overrides (don’t touch button styles) */
     :root { --writing-red: #c62828; }
     header { background-color: var(--writing-red) !important; }
     .pixel-border,
     .question-bar { border: 4px solid var(--writing-red) !important; }
     #hint-box { border-color: var(--writing-red) !important; }
     #user-input { border-color: var(--writing-red) !important; }
-    .text-sage-green { color: var(--writing-red) !important; } /* safety: flip any leftover green text */
   </style>
 </head>
 <body>
@@ -52,95 +44,10 @@
   </header>
 
   <main class="max-w-2xl space-y-6">
-    <!-- QUESTION BAR: inline border forces red -->
+    <!-- QUESTION BAR: inline border forces red; no button style changes -->
     <div class="center p-4 pixel-border bg-soft-white question-bar" style="border: 4px solid #c62828;">
       <p id="question-counter" class="text-crimson" style="margin:0;">Question: 1/5</p>
     </div>
 
-    <!-- MAIN GAME CARD: inline border forces red -->
-    <div class="p-8 pixel-border bg-soft-white center" style="border: 4px solid #c62828;">
-      <h2 class="text-crimson" style="font-size:1.5rem; margin-bottom:1.5rem;">Spell the word!</h2>
-
-      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-crimson" style="border-color:#c62828;">
-        <p class="text-crimson" style="font-size:1.25rem;"><strong>Hint:</strong> </p>
-      </div>
-
-      <form id="spell-form" class="space-y-6">
-        <label for="user-input" class="sr-only">Type the word</label>
-        <input 
-          type="text" 
-          id="user-input" 
-          maxlength="5" 
-          placeholder="Type here"
-          class="w-full max-w-sm mx-auto text-center font-heading"
-          style="font-size:2rem; padding:1rem; letter-spacing:1rem; text-transform:uppercase; border-style:solid; border-width:4px; border-color:#c62828; background:rgba(255,255,255,0.8); caret-color:transparent;"
-        >
-        <button type="submit" class="pixel-button">Check Spelling</button>
-      </form>
-
-      <p id="feedback" class="text-2xl mt-6"></p>
-    </div>
-  </main>
-
-  <script>
-    const wordsToSpell = {
-      'CAT': 'A furry pet that meows',
-      'DOG': 'A friendly animal that barks',
-      'SUN': 'Shines in the sky and is yellow',
-      'BED': 'Where you sleep',
-      'PIG': 'A farm animal that oinks',
-    };
-
-    const totalQuestions = 5;
-    let currentWord = '';
-    let questionsAnswered = 0;
-
-    const questionCounter = document.getElementById("question-counter");
-    const hintBox = document.getElementById("hint-box");
-    const inputEl = document.getElementById("user-input");
-    const feedbackEl = document.getElementById("feedback");
-    const form = document.getElementById("spell-form");
-
-    function generateNewQuestion() {
-      const keys = Object.keys(wordsToSpell);
-      currentWord = keys[Math.floor(Math.random() * keys.length)];
-      hintBox.querySelector('p').innerHTML = `<strong>Hint:</strong> ${wordsToSpell[currentWord]}`;
-      inputEl.value = '';
-      feedbackEl.textContent = '';
-      feedbackEl.style.color = '';
-      inputEl.disabled = false;
-      inputEl.focus();
-    }
-
-    form.onsubmit = function(e) {
-      e.preventDefault();
-      const userInput = inputEl.value.toUpperCase();
-      if (!userInput) return;
-
-      inputEl.disabled = true;
-      questionsAnswered++;
-      questionCounter.textContent = `Question: ${questionsAnswered}/${totalQuestions}`;
-
-      if (userInput === currentWord) {
-        feedbackEl.textContent = "Perfect spelling!";
-        feedbackEl.style.color = "green";
-      } else {
-        feedbackEl.textContent = `Incorrect! The word was: ${currentWord}`;
-        feedbackEl.style.color = "red";
-      }
-
-      setTimeout(() => {
-        if (questionsAnswered < totalQuestions) {
-          generateNewQuestion();
-        } else {
-          feedbackEl.style.color = "inherit";
-          feedbackEl.textContent = `All done! You finished all ${totalQuestions} words.`;
-        }
-      }, 1500);
-    }
-
-    // Initialize
-    generateNewQuestion();
-  </script>
-</body>
-</html>
+    <!-- MAIN GAME CARD: inline border forces red; buttons use writing.css defaults -->
+    <div class="p-8 pixel-border bg-soft-white center" style="borde
