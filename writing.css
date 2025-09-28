@@ -85,6 +85,9 @@ nav ul li a:hover {
 .level-info {
     display: flex;
     flex-direction: column;
+    /* Allow input to take up most of the space */
+    flex-grow: 1; 
+    margin-right: 15px; /* Space between input and button */
 }
 
 .level-title {
@@ -101,6 +104,8 @@ nav ul li a:hover {
     font-size: 1.5em;
     text-decoration: none;
     color: #ff6961;
+    /* Ensures the button doesn't shrink when its a button */
+    flex-shrink: 0; 
 }
 
 footer {
@@ -109,6 +114,8 @@ footer {
     font-size: 0.8em;
     color: #777;
 }
+
+
 /* --- New Styles for the Spell Fixer Game Input --- */
 
 .level-input {
@@ -117,9 +124,9 @@ footer {
     /* Match the size of the level description text */
     font-size: 0.85em; 
     /* Style the input box to look like a clean, editable field */
-    border: 2px solid #555; /* Darker border for contrast */
+    border: 2px solid #555; 
     padding: 8px;
-    margin-top: 5px; /* Separate it from the title */
+    margin-top: 5px; 
     width: 100%;
     /* Keep the background white */
     background-color: #ffffff;
@@ -129,9 +136,9 @@ footer {
 
 /* Style for when the user is actively typing */
 .level-input:focus {
-    outline: none; /* Remove default blue focus ring */
-    border-color: #ff6961; /* Use your primary red color for focus */
-    box-shadow: 2px 2px 0px rgba(255, 105, 97, 0.7); /* A shadow to make it pop */
+    outline: none; 
+    border-color: #ff6961; 
+    box-shadow: 2px 2px 0px rgba(255, 105, 97, 0.7); 
 }
 
 /* Ensure the button looks like a button and works in the flex container */
@@ -142,7 +149,7 @@ footer {
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 1em; /* Reduce size to look more like a typical button */
+    font-size: 1em; 
     font-family: 'Press Start 2P', cursive, sans-serif;
 }
 
