@@ -50,10 +50,9 @@
   </header>
 
   <main class="max-w-3xl">
-    <!-- Scorebar -->
-    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white mb-6">
+    <!-- Header bar: question counter only (score removed) -->
+    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white mb-6" style="justify-content:center;">
       <p id="question-counter" class="text-sage-green">Question: 1/7</p>
-      <p id="score" class="text-sage-green">Score: 0</p>
     </div>
 
     <!-- Game card -->
@@ -85,7 +84,7 @@
   </footer>
 
   <script>
-    // From your React mapping (consonant-focused, like your example)
+    // From your React mapping (consonant-focused)
     const letterSounds = {
       'B': 'buh', 'C': 'kuh', 'D': 'duh', 'F': 'fuh', 'G': 'guh',
       'H': 'huh', 'J': 'juh', 'K': 'kuh', 'L': 'luh', 'M': 'muh',
@@ -94,11 +93,10 @@
     };
 
     const totalQuestions = 7;
-    let score = 0, q = 0, locked = false;
+    let q = 0, locked = false;
     let currentLetter = null;
 
     const questionCounter = document.getElementById('question-counter');
-    const scoreEl = document.getElementById('score');
     const optionsEl = document.getElementById('options');
     const feedbackEl = document.getElementById('feedback');
     const nextBtn = document.getElementById('next-btn');
@@ -120,7 +118,8 @@
       nextBtn.classList.add('invisible');
 
       if (q > totalQuestions) {
-        feedbackEl.textContent = `Game over! Final score: ${score}`;
+        feedbackEl.style.color = 'inherit';
+        feedbackEl.textContent = `All done! You finished all ${totalQuestions} sounds.`;
         optionsEl.innerHTML = '';
         questionCounter.textContent = `Question: ${totalQuestions}/${totalQuestions}`;
         return;
@@ -150,7 +149,6 @@
       });
 
       questionCounter.textContent = `Question: ${q}/${totalQuestions}`;
-      scoreEl.textContent = `Score: ${score}`;
     }
 
     function check(letter) {
@@ -158,7 +156,6 @@
       locked = true;
 
       if (letter === currentLetter) {
-        score += 12;
         feedbackEl.style.color = 'green';
         feedbackEl.textContent = `✅ Correct! "${letterSounds[currentLetter]}" is the sound for ${currentLetter}.`;
       } else {
@@ -166,16 +163,13 @@
         feedbackEl.textContent = `❌ Oops! It was ${currentLetter} (sound "${letterSounds[currentLetter]}").`;
       }
 
-      scoreEl.textContent = `Score: ${score}`;
       nextBtn.classList.remove('invisible');
     }
 
     nextBtn.onclick = () => newQuestion();
 
     resetBtn.onclick = () => {
-      score = 0;
       q = 0;
-      scoreEl.textContent = 'Score: 0';
       newQuestion();
     };
 
