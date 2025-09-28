@@ -42,9 +42,9 @@
   </header>
 
   <main class="max-w-3xl space-y-6">
-    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white">
+    <!-- Header bar: question counter only (score removed) -->
+    <div class="flex justify-between items-center p-4 pixel-border bg-soft-white" style="justify-content:center;">
       <p id="question-counter" class="text-sage-green">Question: 1/6</p>
-      <p id="score" class="text-sage-green">Score: 0</p>
     </div>
 
     <div class="p-8 pixel-border bg-soft-white text-center">
@@ -69,20 +69,18 @@
     const totalQuestions = 6;
     let sequence = [];
     let playerOrder = [];
-    let score = 0;
     let questionsAnswered = 0;
 
     const playerOrderDiv = document.getElementById("player-order");
     const letterOptionsDiv = document.getElementById("letter-options");
     const questionCounter = document.getElementById("question-counter");
-    const scoreEl = document.getElementById("score");
     const feedbackEl = document.getElementById("feedback");
     const resetBtn = document.getElementById("reset-btn");
 
     function generateSequence() {
-      const startLetter = Math.floor(Math.random() * 20); // A-T
+      const startLetter = Math.floor(Math.random() * 20); // A–T
       sequence = [];
-      for(let i=0;i<5;i++) {
+      for (let i = 0; i < 5; i++) {
         sequence.push(String.fromCharCode(65 + startLetter + i));
       }
       const shuffled = [...sequence].sort(() => 0.5 - Math.random());
@@ -90,6 +88,7 @@
       renderLetters(shuffled);
       renderPlayerOrder();
       feedbackEl.textContent = "";
+      feedbackEl.style.color = "";
     }
 
     function renderLetters(shuffled) {
@@ -112,7 +111,7 @@
         playerOrderDiv.appendChild(div);
       });
       const emptySlots = 5 - playerOrder.length;
-      for(let i=0;i<emptySlots;i++){
+      for (let i = 0; i < emptySlots; i++) {
         const div = document.createElement("div");
         div.className = "w-12 h-12 border-dashed border-3 bg-white/50";
         playerOrderDiv.appendChild(div);
@@ -120,10 +119,10 @@
     }
 
     function handleLetterClick(letter) {
-      if(playerOrder.includes(letter)) return;
+      if (playerOrder.includes(letter)) return;
       playerOrder.push(letter);
       renderPlayerOrder();
-      if(playerOrder.length === sequence.length) {
+      if (playerOrder.length === sequence.length) {
         checkAnswer();
       }
     }
@@ -131,20 +130,23 @@
     function checkAnswer() {
       questionsAnswered++;
       questionCounter.textContent = `Question: ${questionsAnswered}/${totalQuestions}`;
-      if(JSON.stringify(playerOrder) === JSON.stringify(sequence)){
-        score += 15;
-        scoreEl.textContent = `Score: ${score}`;
+
+      if (JSON.stringify(playerOrder) === JSON.stringify(sequence)) {
         feedbackEl.textContent = "Perfect!";
         feedbackEl.style.color = "green";
       } else {
         feedbackEl.textContent = `Incorrect! Correct order: ${sequence.join(", ")}`;
         feedbackEl.style.color = "red";
       }
+
       setTimeout(() => {
-        if(questionsAnswered < totalQuestions){
+        if (questionsAnswered < totalQuestions) {
           generateSequence();
         } else {
-          feedbackEl.textContent = `Game over! Final score: ${score}`;
+          feedbackEl.style.color = "inherit";
+          feedbackEl.textContent = `All done! You finished all ${totalQuestions} rounds.`;
+          // Optionally disable further clicks:
+          letterOptionsDiv.innerHTML = "";
         }
       }, 1500);
     }
@@ -153,6 +155,7 @@
       playerOrder = [];
       renderPlayerOrder();
       feedbackEl.textContent = "";
+      feedbackEl.style.color = "";
     }
 
     // Initialize first round
