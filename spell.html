@@ -35,9 +35,9 @@
   </header>
 
   <main class="max-w-2xl space-y-6">
+    <!-- Header bar: question counter only (score removed) -->
     <div class="flex justify-between items-center p-4 pixel-border bg-soft-white">
-      <p id="question-counter" class="text-sage-green">Question: 1/5</p>
-      <p id="score" class="text-sage-green">Score: 0</p>
+      <p id="question-counter" class="text-sage-green" style="margin: 0 auto;">Question: 1/5</p>
     </div>
 
     <div class="p-8 pixel-border bg-soft-white text-center">
@@ -48,18 +48,17 @@
       </div>
 
       <form id="spell-form" class="space-y-6">
-  <label for="user-input" class="sr-only">Type the word</label>
-  <input 
-    type="text" 
-    id="user-input" 
-    maxlength="5" 
-    placeholder="Type here"
-    class="w-full max-w-sm mx-auto text-center font-heading text-4xl p-4 tracking-[1rem] uppercase border-4 border-sage-green bg-soft-white" 
-    style="caret-color:transparent;"
-  >
-  <button type="submit" class="pixel-button">Check Spelling</button>
-</form>
-
+        <label for="user-input" class="sr-only">Type the word</label>
+        <input 
+          type="text" 
+          id="user-input" 
+          maxlength="5" 
+          placeholder="Type here"
+          class="w-full max-w-sm mx-auto text-center font-heading text-4xl p-4 tracking-[1rem] uppercase border-4 border-sage-green bg-soft-white" 
+          style="caret-color:transparent;"
+        >
+        <button type="submit" class="pixel-button">Check Spelling</button>
+      </form>
 
       <p id="feedback" class="text-2xl mt-6"></p>
     </div>
@@ -76,12 +75,9 @@
 
     const totalQuestions = 5;
     let currentWord = '';
-    let userInput = '';
     let questionsAnswered = 0;
-    let score = 0;
 
     const questionCounter = document.getElementById("question-counter");
-    const scoreEl = document.getElementById("score");
     const hintBox = document.getElementById("hint-box");
     const inputEl = document.getElementById("user-input");
     const feedbackEl = document.getElementById("feedback");
@@ -99,16 +95,14 @@
 
     form.onsubmit = function(e) {
       e.preventDefault();
-      userInput = inputEl.value.toUpperCase();
-      if(!userInput) return;
+      const userInput = inputEl.value.toUpperCase();
+      if (!userInput) return;
 
       inputEl.disabled = true;
       questionsAnswered++;
       questionCounter.textContent = `Question: ${questionsAnswered}/${totalQuestions}`;
 
-      if(userInput === currentWord){
-        score += 15;
-        scoreEl.textContent = `Score: ${score}`;
+      if (userInput === currentWord) {
         feedbackEl.textContent = "Perfect spelling!";
         feedbackEl.style.color = "green";
       } else {
@@ -117,10 +111,11 @@
       }
 
       setTimeout(() => {
-        if(questionsAnswered < totalQuestions){
+        if (questionsAnswered < totalQuestions) {
           generateNewQuestion();
         } else {
-          feedbackEl.textContent = `Game over! Final score: ${score}`;
+          feedbackEl.style.color = "inherit";
+          feedbackEl.textContent = `All done! You finished all ${totalQuestions} words.`;
         }
       }, 1500);
     }
