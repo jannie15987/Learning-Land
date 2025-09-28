@@ -18,19 +18,20 @@
     .text-red { color: red; }
     .pixel-button { font-family: 'Press Start 2P', cursive; padding: 10px; cursor: pointer; }
     input { font-family: 'Press Start 2P', cursive; }
-    /* light utility helpers (since tailwind-like classes aren't present) */
+    /* light utility helpers */
     .border-2 { border-width: 2px; }
     .border-4 { border-width: 4px; }
     .border-crimson { border-color: #c62828; }
     .center { text-align:center; }
 
-    /* --- Strong, final overrides to guarantee red frames --- */
+    /* Strong, final overrides (in case site CSS loads later) */
     :root { --writing-red: #c62828; }
     header { background-color: var(--writing-red) !important; }
     .pixel-border,
     .question-bar { border: 4px solid var(--writing-red) !important; }
     #hint-box { border-color: var(--writing-red) !important; }
     #user-input { border-color: var(--writing-red) !important; }
+    .text-sage-green { color: var(--writing-red) !important; } /* safety: flip any leftover green text */
   </style>
 </head>
 <body>
@@ -43,7 +44,7 @@
       <ul>
         <li><a href="homepage.html">🏠 Home</a></li>
         <li><a href="reading.html">📖 Reading</a></li>
-        <li><a href="writing.html" class="active">✏️ Writing</a></li><!-- ✅ stays highlighted -->
+        <li><a href="writing.html" class="active">✏️ Writing</a></li><!-- stays highlighted -->
         <li><a href="math.html">🧮 Math</a></li>
         <li><a href="aboutus.html"> About Us</a></li>
       </ul>
@@ -51,15 +52,16 @@
   </header>
 
   <main class="max-w-2xl space-y-6">
-    <!-- Centered bar with red theme -->
-    <div class="center p-4 pixel-border bg-soft-white question-bar">
+    <!-- QUESTION BAR: inline border forces red -->
+    <div class="center p-4 pixel-border bg-soft-white question-bar" style="border: 4px solid #c62828;">
       <p id="question-counter" class="text-crimson" style="margin:0;">Question: 1/5</p>
     </div>
 
-    <div class="p-8 pixel-border bg-soft-white center">
+    <!-- MAIN GAME CARD: inline border forces red -->
+    <div class="p-8 pixel-border bg-soft-white center" style="border: 4px solid #c62828;">
       <h2 class="text-crimson" style="font-size:1.5rem; margin-bottom:1.5rem;">Spell the word!</h2>
 
-      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-crimson">
+      <div id="hint-box" class="mb-8 p-4 bg-butter-yellow border-2 border-crimson" style="border-color:#c62828;">
         <p class="text-crimson" style="font-size:1.25rem;"><strong>Hint:</strong> </p>
       </div>
 
@@ -71,12 +73,8 @@
           maxlength="5" 
           placeholder="Type here"
           class="w-full max-w-sm mx-auto text-center font-heading"
-          style="font-size:2rem; padding:1rem; letter-spacing:1rem; text-transform:uppercase; border-style:solid;"
+          style="font-size:2rem; padding:1rem; letter-spacing:1rem; text-transform:uppercase; border-style:solid; border-width:4px; border-color:#c62828; background:rgba(255,255,255,0.8); caret-color:transparent;"
         >
-        <!-- explicit border via class helpers -->
-        <style>
-          #user-input { border-width:4px; border-color:#c62828; background:rgba(255,255,255,0.8); caret-color:transparent; }
-        </style>
         <button type="submit" class="pixel-button">Check Spelling</button>
       </form>
 
