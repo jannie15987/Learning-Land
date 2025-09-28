@@ -1,7 +1,6 @@
 // --- 1. GET HTML ELEMENTS ---
 const sentenceDisplay = document.getElementById('sentence-display');
 const questionCounter = document.getElementById('question-counter');
-const scoreCounter = document.getElementById('score-counter');
 const feedbackMessage = document.getElementById('feedback-message');
 const optionButtons = document.querySelectorAll('.option-button');
 
@@ -17,7 +16,6 @@ const sentences = [
     { text: 'That is amazing', correct: '!'}
 ];
 
-let score = 0;
 let questionsAnswered = 0;
 const totalQuestions = 5;
 let currentSentence = {};
@@ -55,8 +53,7 @@ function handlePunctuationSelect(event) {
     optionButtons.forEach(button => button.disabled = true);
     
     if (selectedPunctuation === currentSentence.correct) {
-        score += 10;
-        scoreCounter.textContent = `Score: ${score}`;
+        // REMOVED SCORE LOGIC
         feedbackMessage.textContent = 'Good Job!';
         feedbackMessage.className = 'correct';
     } else {
@@ -70,7 +67,8 @@ function handlePunctuationSelect(event) {
 
 // Function to run when the game is over
 function endGame() {
-    sentenceDisplay.textContent = `Game Over! Your final score is ${score}.`;
+    // REMOVED SCORE FROM FINAL MESSAGE
+    sentenceDisplay.textContent = 'All done! Great work.';
     feedbackMessage.textContent = 'Play again? Refresh the page!';
     optionButtons.forEach(button => button.disabled = true);
 }
